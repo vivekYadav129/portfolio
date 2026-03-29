@@ -1,0 +1,14 @@
+/* Main Stylesheet - Import all component styles */
+
+/* Base styles and variables */
+@import url('base.css');
+
+/* Component styles */
+@import url('header.css');
+@import url('hero.css');
+@import url('components.css');
+@import url('about.css');
+@import url('skills.css');
+@import url('projects.css');
+@import url('contact.css');
+@import url('footer.css');
