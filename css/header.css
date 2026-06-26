@@ -2,12 +2,18 @@
 header {
     position: sticky;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px var(--shadow);
-    padding: 15px 0;
+    background-color: var(--glass-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow);
+    padding: 18px 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: var(--transition-theme), padding 0.3s;
+}
+
+header.scroll-scrolled {
+    padding: 12px 0;
 }
 
 header .container {
@@ -18,24 +24,43 @@ header .container {
 
 .logo {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-weight: 800;
+    color: var(--text-color);
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
 }
 
 nav {
     display: flex;
     gap: 30px;
+    align-items: center;
 }
 
 nav a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-secondary);
     font-weight: 500;
+    font-size: 0.95rem;
     transition: var(--transition);
     position: relative;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+}
+
+nav a i {
+    font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 nav a::after {
@@ -43,55 +68,106 @@ nav a::after {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -5px;
+    bottom: 0;
     left: 50%;
-    background-color: var(--secondary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     transition: var(--transition);
     transform: translateX(-50%);
 }
 
 nav a:hover {
-    color: var(--secondary-color);
+    color: var(--text-color);
+    background: rgba(99, 102, 241, 0.06);
 }
 
-nav a:hover::after {
-    width: 100%;
+nav a.active {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
-/* Mobile Navigation */
+nav a.active::after {
+    width: 60%;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle, .menu-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover, .menu-toggle:hover {
+    background: var(--border-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.theme-toggle i {
+    transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover i {
+    transform: rotate(30deg);
+}
+
 .menu-toggle {
     display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-color);
 }
 
-@media (max-width: 480px) {
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
     nav {
         flex-direction: column;
         gap: 15px;
         position: absolute;
         top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        padding: 20px;
-        box-shadow: 0 5px 20px var(--shadow);
-        transform: translateY(-100%);
+        left: 24px;
+        right: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 24px;
+        box-shadow: 0 10px 30px var(--shadow-lg);
+        transform: translateY(-20px);
         opacity: 0;
         visibility: hidden;
         transition: var(--transition);
+        z-index: 999;
     }
 
     nav.active {
-        transform: translateY(0);
+        transform: translateY(10px);
         opacity: 1;
         visibility: visible;
     }
 
-    .menu-toggle {
-        display: block;
+    nav a {
+        width: 100%;
+        padding: 10px 15px;
+        justify-content: flex-start;
     }
-}
+    
+    nav a::after {
+        display: none;
+    }
+}
